@@ -5,3 +5,4 @@ pydantic_settings
 python-multipart
 alembic
 psycopg2-binary
+passlib[bcrypt]
