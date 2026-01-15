@@ -32,7 +32,7 @@ const Login = ({ isSeller = false }) => {
                         ? "Manage your inventory, track orders and grow your business."
                         : "Get access to your Orders, Wishlist and Recommendations"}
                 </p>
-                {/* Flipkart-style illustration placeholder */}
+                {/* SellPhone-style illustration placeholder */}
                 <img
                     src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/login_img_c4a81e.png"
                     alt="login-illustration"
@@ -59,7 +59,7 @@ const Login = ({ isSeller = false }) => {
                     />
 
                     <div className="text-[12px] text-gray-500">
-                        By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.
+                        By continuing, you agree to SellPhone's Terms of Use and Privacy Policy.
                     </div>
 
                     <button className="fk-btn-yellow">
@@ -68,7 +68,7 @@ const Login = ({ isSeller = false }) => {
                 </form>
 
                 <Link to={isSeller ? "/seller-register" : "/register"} className="text-center text-fk-blue font-semibold py-4 bg-gray-50 shadow-inner mt-10">
-                    {isSeller ? "New Seller? Create a seller account" : "New to Flipkart? Create an account"}
+                    {isSeller ? "New Seller? Create a seller account" : "New to SellPhone? Create an account"}
                 </Link>
             </div>
         </div>

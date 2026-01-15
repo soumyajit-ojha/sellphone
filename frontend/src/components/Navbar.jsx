@@ -30,7 +30,7 @@ const Navbar = () => {
 
                 {/* Logo */}
                 <Link to="/" className="logo-container">
-                    <span className="logo-main">Flipkart</span>
+                    <span className="logo-main">SellPhone</span>
                     <span className="logo-plus">Explore <span className="font-extrabold italic">Plus</span></span>
                 </Link>
 
