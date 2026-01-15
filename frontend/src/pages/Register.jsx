@@ -12,11 +12,14 @@ const Register = ({ isSeller = false }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(formData);
         try {
-            await userService.register(formData);
+            const response = await userService.register(formData);
+            console.log("Server Response:", response)
             alert(`${isSeller ? 'Seller' : 'User'} Registered Successfully!`);
             navigate(isSeller ? '/seller-login' : '/login');
         } catch (err) {
+            console.error("Error: ", err.response?.data || err.message)
             alert(err.response?.data?.detail || "Registration failed");
         }
     };
@@ -54,9 +57,9 @@ const Register = ({ isSeller = false }) => {
                     <input type="password" placeholder="Set Password" className="fk-input"
                         onChange={e => setFormData({ ...formData, password: e.target.value })} required />
 
-                    <button className="fk-btn-yellow mt-4">{isSeller ? "Register as Seller" : "Continue"}</button>
+                    <button className="fk-btn-yellow mt-4 cursor-pointer">{isSeller ? "Register as Seller" : "Continue"}</button>
                 </form>
-                <Link to={isSeller ? "/seller-login" : "/login"} className="text-center text-fk-blue font-semibold py-4 bg-gray-50 shadow-inner mt-4">
+                <Link to={isSeller ? "/seller-login" : "/login"} className="text-center text-fk-blue font-semibold py-4 bg-gray-50 shadow-inner mt-4 cursor-pointer">
                     Existing User? Log in
                 </Link>
             </div>
