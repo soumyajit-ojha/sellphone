@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": ":path*",
+      "destination": "http://40.192.15.153:8000/:path*"
+    }
+  ]
+}

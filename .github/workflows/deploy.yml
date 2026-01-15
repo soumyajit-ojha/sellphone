@@ -30,9 +30,11 @@ jobs:
             git reset --hard origin/main
 
             # 3. Dynamic .env Creation (overwrite to avoid duplicates)
-            cat > backend/.env << EOF
-            HOST_IP=${{ secrets.HOST_IP }}
-            EOF
+            # cat > backend/.env << EOF
+            # HOST_IP=${{ secrets.HOST_IP }}
+            # SECRET_KEY=${{ secrets.SECRET_KEY }}
+            # EOF
+
 
             # 4. Stop & Remove Old Container
             docker stop sellphone || true

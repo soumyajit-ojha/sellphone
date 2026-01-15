@@ -10,7 +10,7 @@ from app.schemas.user import (
 )
 from typing import List
 
-router = APIRouter(prefix="/user", tags=["User Profile & Addresses"])
+router = APIRouter()
 
 
 # Helper to get current user from header
