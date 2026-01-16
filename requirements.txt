@@ -6,3 +6,4 @@ python-multipart
 alembic
 psycopg2-binary
 passlib[bcrypt]
+boto3

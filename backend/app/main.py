@@ -2,6 +2,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI
 from app.api import auth, profile, products
+from app.api import ecommerce
 
 app = FastAPI()
 
@@ -24,3 +25,4 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/auth")
 app.include_router(profile.router, prefix="/user")
 app.include_router(products.router, prefix="/products")
+app.include_router(ecommerce.router, prefix="/ecommerce")

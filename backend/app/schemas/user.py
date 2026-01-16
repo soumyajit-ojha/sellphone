@@ -65,7 +65,8 @@ class UserResponse(BaseModel):
     phone: str
     user_type: UserRole
     is_active: bool
-    profile: Optional[ProfileResponse]
+    profile: Optional[ProfileResponse] = None
+    addresses: List[AddressResponse] = []
 
     class Config:
         from_attributes = True

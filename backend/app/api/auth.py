@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Header
+from fastapi import APIRouter, Depends, HTTPException, status, Header, File
 from sqlalchemy.orm import Session
 from app.db.session import get_db
-from app.models.user import User, Profile
+from app.models.user import User, Profile, UserRole
 from app.schemas.user import UserCreate, UserResponse, UserLogin
 from app.core.security import get_hashed_password, verify_password
+from typing import Optional
 
 router = APIRouter()
 
@@ -37,10 +38,21 @@ async def register(user_in: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.post("/login")
-async def login(credentials: UserLogin, db: Session = Depends(get_db)):
+async def login(
+    credentials: UserLogin,
+    required_role: Optional[UserRole] = None,
+    db: Session = Depends(get_db),
+):
     user = db.query(User).filter(User.email == credentials.email).first()
     if not user or not verify_password(credentials.password, user.password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    # RBAC Check: If login is coming from Seller Portal, check if user is a Seller
+    if required_role and user.user_type != required_role:
+        raise HTTPException(
+            status_code=403,
+            detail=f"Access denied. This account is registered as a {user.user_type.value}.",
+        )
 
     return {
         "message": "Login successful",

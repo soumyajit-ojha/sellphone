@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Header
+from fastapi import APIRouter, Depends, HTTPException, Header, File, UploadFile
 from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.models.user import User, Profile, Address
@@ -41,6 +41,26 @@ async def update_profile(
         profile.profile_picture = data.profile_picture
     db.commit()
     return {"message": "Profile updated"}
+
+
+@router.put("/profile/picture")
+async def update_profile_picture(
+    image: UploadFile = File(...),
+    uid: int = Depends(get_current_user_id),
+    db: Session = Depends(get_db),
+):
+    profile = db.query(Profile).filter(Profile.user_id == uid).first()
+
+    # Delete old picture if exists
+    if profile.profile_picture:
+        await delete_image_from_s3(profile.profile_picture)
+
+    # Upload new
+    new_url = await upload_image_to_s3(image, folder="profiles")
+    profile.profile_picture = new_url
+
+    db.commit()
+    return {"profile_picture": new_url}
 
 
 @router.post("/address", response_model=AddressResponse)
