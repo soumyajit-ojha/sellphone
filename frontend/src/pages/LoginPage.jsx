@@ -20,9 +20,7 @@ const LoginPage = () => {
         setLoading(true);
 
         try {
-            console.log(email, password);
             const res = await userService.login({ email, password });
-            console.log(res);
             // Extract from backend response: { access_token, token_type, user_role }
             login(res.data.access_token, res.data.user_role);
 
