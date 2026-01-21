@@ -11,11 +11,12 @@ const ProfilePage = () => {
 
     const loadData = async () => {
         const res = await userService.getProfile();
+        console.log(res.data);
         setUser(res.data);
         setFormData({
             first_name: res.data.first_name,
             last_name: res.data.last_name,
-            gender: res.data.profile?.gender || ''
+            gender: res.data.gender || ''
         });
         setLoading(false);
     };
@@ -26,7 +27,7 @@ const ProfilePage = () => {
         const file = e.target.files[0];
         if (!file) return;
 
-        // FAANG Logic: 3MB Validation
+        // 3MB Validation
         const fileSizeMB = file.size / (1024 * 1024);
         if (fileSizeMB > 3) {
             alert("Image size must be less than 3MB");
@@ -42,6 +43,8 @@ const ProfilePage = () => {
     };
 
     const handleSave = async () => {
+        console.log("Updating Name:", formData.first_name, formData.last_name);
+        console.log("Updating Gender:", formData.gender);
         try {
             await userService.updateProfile(formData);
             setEditMode(false);
@@ -66,7 +69,7 @@ const ProfilePage = () => {
             <div className="flex items-center gap-8 mb-12">
                 <div className="relative group">
                     <img
-                        src={user.profile?.profile_picture || `https://ui-avatars.com/api/?name=${user.first_name}+${user.last_name}&background=random`}
+                        src={user.profile_picture || `https://ui-avatars.com/api/?name=${user.first_name}+${user.last_name}&background=random`}
                         className="w-28 h-28 rounded-full object-cover border-2 border-gray-100"
                         alt="profile"
                         onError={(e) => { e.target.src = 'https://cdn-icons-png.flaticon.com/512/149/149071.png'; }}
@@ -85,6 +88,8 @@ const ProfilePage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <InputGroup label="First Name" value={formData.first_name} disabled={!editMode} onChange={v => setFormData({ ...formData, first_name: v })} />
                 <InputGroup label="Last Name" value={formData.last_name} disabled={!editMode} onChange={v => setFormData({ ...formData, last_name: v })} />
+                <InputGroup label="Email Address" value={user.email} disabled={true} />
+                <InputGroup label="Mobile Number" value={user.phone} disabled={true} />
 
                 <div className="space-y-2">
                     <label className="text-xs font-bold text-gray-400 uppercase">Your Gender</label>
@@ -103,8 +108,6 @@ const ProfilePage = () => {
                     </div>
                 </div>
 
-                <InputGroup label="Email Address" value={user.email} disabled={true} />
-                <InputGroup label="Mobile Number" value={user.phone} disabled={true} />
             </div>
         </AccountLayout>
     );
