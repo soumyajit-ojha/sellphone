@@ -90,8 +90,6 @@ const ProfilePage = () => {
                 <InputGroup label="Last Name" value={formData.last_name} disabled={!editMode} onChange={v => setFormData({ ...formData, last_name: v })} />
                 <InputGroup label="Email Address" value={user.email} disabled={true} />
                 <InputGroup label="Mobile Number" value={user.phone} disabled={true} />
-                <InputGroup label="Email Address" value={user.email} disabled={true} />
-                <InputGroup label="Mobile Number" value={user.phone} disabled={true} />
 
                 <div className="space-y-2">
                     <label className="text-xs font-bold text-gray-400 uppercase">Your Gender</label>
