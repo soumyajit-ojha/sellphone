@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, ShoppingCart, User, LogOut, ChevronDown, Smartphone, Heart } from 'lucide-react';
+import { Search, ShoppingCart, User, LogOut, Package, ChevronDown, Smartphone, Heart } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -61,6 +61,9 @@ const Navbar = () => {
                                     </Link>
                                     <Link to="/wishlist" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 border-b">
                                         <Heart size={16} className="text-fk-blue" /> Wishlist
+                                    </Link>
+                                    <Link to="/orders" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 border-b">
+                                        <Package size={16} className="text-fk-blue" /> My Orders
                                     </Link>
                                     <Link to="/seller-dashboard" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 border-b">
                                         <Smartphone size={16} className="text-fk-blue" /> Seller Hub
